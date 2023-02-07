@@ -1,6 +1,7 @@
 package br.com.project.rest.model;
 
-import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,9 +24,9 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "NOME", nullable = false)
+	@JsonProperty("nome")
 	private String nome;
 	
-	@Column(name = "IDADE", nullable = false)
+	@JsonProperty("idade")
 	private String idade;
 }
