@@ -16,36 +16,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.project.rest.model.Cliente;
 import br.com.project.rest.model.Response;
-import br.com.project.rest.repository.ClienteRepository;
+import br.com.project.rest.service.ClienteService;
 
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
 	
 	@Autowired
-	private ClienteRepository clienteRepository;
+	private ClienteService clienteService;
 	
 	@GetMapping(value = "/listar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Cliente> listar() {
-		return clienteRepository.findAll();
+		return clienteService.clienteListar();
 	}
-	
+
 	@PostMapping(value = "/adicionar", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public @ResponseBody Response adicionar(@RequestBody Cliente cliente) {
-		Response response = new Response();
-		clienteRepository.save(cliente);
-		response.setMessage("Foi adicionado o(a) cliente " + cliente.getNome());
-		return response;
+		return clienteService.adicionarClientes(cliente);
 	}
-	
+
 	@DeleteMapping(value = "/deletar", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
 	public @ResponseBody Response delete(@RequestBody Cliente cliente) {
-		Response response = new Response();
-		clienteRepository.delete(cliente);
-		response.setMessage("O(A) cliente " + cliente.getNome() + " foi deletado");
-		return response;
+		return clienteService.deletarCliente(cliente);
 		
 	}
 }
