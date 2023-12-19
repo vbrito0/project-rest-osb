@@ -2,17 +2,11 @@ package br.com.project.rest.controller;
 
 import java.util.List;
 
+import br.com.project.rest.dto.ClienteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.project.rest.model.Cliente;
 import br.com.project.rest.model.Response;
@@ -30,16 +24,22 @@ public class ClienteController {
 		return clienteService.clienteListar();
 	}
 
-	@PostMapping(value = "/adicionar", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/adicionar", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public @ResponseBody Response adicionar(@RequestBody Cliente cliente) {
+	public @ResponseBody Response adicionar(@RequestBody ClienteDto cliente) {
 		return clienteService.adicionarClientes(cliente);
 	}
 
-	@DeleteMapping(value = "/deletar", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/atualizar/{idCliente}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
-	public @ResponseBody Response delete(@RequestBody Cliente cliente) {
-		return clienteService.deletarCliente(cliente);
+	public @ResponseBody Response atualizar(@PathVariable("/idCliente") Long idCliente ,@RequestBody ClienteDto cliente) {
+		return clienteService.atualizarCliente(idCliente, cliente);
+	}
+
+	@DeleteMapping(value = "/deletar/{idCliente}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(value = HttpStatus.OK)
+	public @ResponseBody Response delete(@PathVariable Long idCliente) {
+		return clienteService.deletarCliente(idCliente);
 		
 	}
 }
