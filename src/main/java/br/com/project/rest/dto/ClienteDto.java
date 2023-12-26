@@ -2,14 +2,19 @@ package br.com.project.rest.dto;
 
 
 import br.com.project.rest.model.Cliente;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class ClienteDto {
 
     private String nome;
